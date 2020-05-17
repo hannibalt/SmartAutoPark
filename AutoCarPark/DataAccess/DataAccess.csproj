@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\_AutoCarPark\_AutoCarPark.csproj" />
+    <ProjectReference Include="..\_AutoParkData\_AutoParkData.csproj" />
+  </ItemGroup>
+
+</Project>
