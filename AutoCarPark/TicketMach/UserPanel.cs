@@ -30,6 +30,7 @@ namespace TicketMach
         private void UserPanel_Load(object sender, EventArgs e)
         {
             scR_Register1.Visible = false;
+             
 
         }
 

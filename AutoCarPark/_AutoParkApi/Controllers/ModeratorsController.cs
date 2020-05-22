@@ -53,9 +53,9 @@ namespace _AutoParkApi.Controllers
         }
 
         [HttpGet("{mail}/{pass}")]
-        public Moderators GetUserName(string mail,string pass)
+        public Moderators GetUserName(string mail, string pass)
         {
-           return _moderatorsservice.GetUser(mail, pass);
+            return _moderatorsservice.GetUser(mail, pass);
         }
     }
 }

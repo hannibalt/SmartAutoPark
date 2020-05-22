@@ -67,26 +67,17 @@ namespace ControlSRC
         }
         private void btn_camconnect_Click_1(object sender, EventArgs e)
         {
-            cam = new VideoCaptureDevice(webcam[cmb_CamList.SelectedIndex].MonikerString);
-            cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
-            cam.Start();
-            onstream = 1;
+            if (onstream == 0)
+            {
+                cam = new VideoCaptureDevice(webcam[cmb_CamList.SelectedIndex].MonikerString);
+                cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
+                cam.Start();
+                onstream = 1;
+                btn_camconnect.BackColor = Color.Green;
+
+            }
         }
-        //private void btn_screensave_Click(object sender, EventArgs e)
-        //{
-        //    if (onstream == 1 && Folder != "")
-        //    {
-        //        string samplepatch = Folder;
-        //        string savereplace;
-        //        int count = Helper.CaughtFolder(samplepatch);
-        //        Convert.ToString(count);
-        //        savereplace = samplepatch + @"\lastimage" + count + ".jpg";
-        //        Firststate.Image.Save(savereplace);
-        //        LastStat.Image = Firststate.Image;
-        //    }
-        //    else
-        //        MessageBox.Show("Kamera Baglantısından Emin Olunuz!!");
-        //}
+
         private void CatchImage()
         {
             if (onstream == 1 && Folder != "")
@@ -114,9 +105,20 @@ namespace ControlSRC
 
         private void ArdunioReader_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            ArdunioData = ArdunioReader.ReadLine();//Gelen veriyi okuma
-            Convert.ToInt32(ArdunioData);
-            this.Invoke(new EventHandler(displayData_event));
+            try
+            {
+                ArdunioData = ArdunioReader.ReadLine();//Gelen veriyi okuma
+                Convert.ToInt32(ArdunioData);
+                this.Invoke(new EventHandler(displayData_event));
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sensör Hatası!!");
+
+            }
+
+
         }
         private void displayData_event(object sender, EventArgs e)
         {
@@ -142,6 +144,7 @@ namespace ControlSRC
                 ArdunioReader.Open();
                 ArdunioReader.DataReceived += new SerialDataReceivedEventHandler(ArdunioReader_DataReceived); //DataReceived eventini oluşturma                                                                                                            //Seri portu aç
                 CheckDoor.Enabled = false;
+                CheckDoor.BackColor = Color.Green;
                 //"Bağlan" butonunu tıklanamaz yap
             }
             catch (Exception ex)
@@ -202,6 +205,7 @@ namespace ControlSRC
 
             if (FindRootSource.ShowDialog(this) == DialogResult.OK)
             {
+                Btn_SourceCheck.BackColor = Color.Green;
                 FileInfo dosyabilgisi = new FileInfo(FindRootSource.SelectedPath);
 
                 Folder = (dosyabilgisi.FullName);

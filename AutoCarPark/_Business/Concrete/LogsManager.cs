@@ -33,7 +33,7 @@ namespace _Business.Concrete
             return _logsDal.GetList(l => l.LogId == logsid);
         }
 
-        
+
 
         public Logs GetLogsById(int id)
         {

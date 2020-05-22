@@ -21,7 +21,7 @@ namespace _AutoCarPark.DataAccess.EntityFramework
             }
         }
 
-       
+
 
         public void Delete(TEntity entity)
         {

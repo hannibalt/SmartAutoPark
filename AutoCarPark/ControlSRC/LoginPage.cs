@@ -1,16 +1,5 @@
-﻿using ControlSRC.VModels;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-using Service.ServiceHelp;
 
 namespace ControlSRC
 {
@@ -66,7 +55,11 @@ namespace ControlSRC
         }
         private async void btnlogin_Click(object sender, EventArgs e)
         {
+            if (txtusername.Text.Length == 0 && txtpassword.Text.Length == 0)
+            {
+                MessageBox.Show("Lütfen Alanları Doldurunuz", "BAŞARISIZ GİRİŞ");
 
+            }
             var result = await client.LoginRequest(txtusername.Text, txtpassword.Text);
 
             if (result > 0)

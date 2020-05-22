@@ -2,7 +2,6 @@
 using _Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace _AutoParkApi.Controllers
 {
