@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using _AutoParkData.Models;
+﻿using _AutoParkData.Models;
 using _Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace _AutoParkApi.Controllers
 {
@@ -55,6 +50,12 @@ namespace _AutoParkApi.Controllers
         public Moderators GetModerator(int id)
         {
             return _moderatorsservice.GetModerators(id);
+        }
+
+        [HttpGet("{mail}/{pass}")]
+        public Moderators GetUserName(string mail,string pass)
+        {
+           return _moderatorsservice.GetUser(mail, pass);
         }
     }
 }

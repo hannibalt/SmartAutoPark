@@ -77,6 +77,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -99,8 +100,17 @@
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
+    <Reference Include="XanderUI">
+      <HintPath>..\..\..\..\..\Downloads\XanderUI-master\XanderUI-master\XanderUI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginPage.Designer.cs">
+      <DependentUpon>LoginPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainImages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +124,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VModels\CarParkscs.cs" />
+    <Compile Include="VModels\Moderators.cs" />
+    <EmbeddedResource Include="LoginPage.resx">
+      <DependentUpon>LoginPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainImages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainImages.Designer.cs</LastGenOutput>
@@ -145,6 +160,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{23553a44-3d15-43dd-b861-96bad9661179}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\_AutoParkProcessor\_AutoParkProcessor.csproj">
       <Project>{859b4802-2937-4111-9516-bd55f975412f}</Project>
       <Name>_AutoParkProcessor</Name>
@@ -164,6 +183,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-door-symbol-45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login-rounded-right.png" />
+    <None Include="Resources\exit.png" />
+    <None Include="Resources\exit1.png" />
+    <Content Include="Resources\login.png" />
+    <None Include="Resources\login1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

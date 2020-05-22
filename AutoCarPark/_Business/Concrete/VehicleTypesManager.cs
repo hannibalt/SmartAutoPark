@@ -1,9 +1,7 @@
 ﻿using _AutoParkData.Models;
 using _Business.Abstract;
 using DataAccess.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Concrete
 {

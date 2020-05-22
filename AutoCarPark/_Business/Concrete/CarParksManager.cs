@@ -1,9 +1,7 @@
 ﻿using _AutoParkData.Models;
 using _Business.Abstract;
 using DataAccess.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Concrete
 {
@@ -27,7 +25,7 @@ namespace _Business.Concrete
 
         public List<CarParks> GetAll()
         {
-          return  _carParksDal.GetList();
+            return _carParksDal.GetList();
         }
 
         public List<CarParks> GetById(int carParksId)
@@ -37,7 +35,7 @@ namespace _Business.Concrete
 
         public CarParks GetCarParks(int id)
         {
-            var carpark=_carParksDal.Get(c => c.ParkId == id);
+            var carpark = _carParksDal.Get(c => c.ParkId == id);
             return carpark;
         }
 

@@ -1,21 +1,15 @@
-﻿using System;
+﻿using openalprnet;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.IO;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using AForge.Video;
-using AForge.Video.DirectShow;
-using openalprnet;
 
 
 namespace _AutoParkProcessor.ImageProc
 {
-  public class ImageEditor
+    public class ImageEditor
     {
         private static string EnBenzeyenPlakayiGetir(List<AlprPlateNet> plakalar)
         {
@@ -105,7 +99,7 @@ namespace _AutoParkProcessor.ImageProc
 
         public static string processImageFile(string fileName)
         {
-            string resultv2="";
+            string resultv2 = "";
             //resetControls();
             var region = "eu";
             String config_file = Path.Combine(AssemblyDirectory, "openalpr.conf");
@@ -131,7 +125,7 @@ namespace _AutoParkProcessor.ImageProc
                     var cropped = cropImage(img, rect);
                     images.Add(cropped);
 
-                     resultv2 = Convert.ToString(EnBenzeyenPlakayiGetir(result.TopNPlates).Trim());
+                    resultv2 = Convert.ToString(EnBenzeyenPlakayiGetir(result.TopNPlates).Trim());
                 }
 
                 //if (images.Any())

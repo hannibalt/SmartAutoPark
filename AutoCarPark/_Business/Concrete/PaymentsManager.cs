@@ -1,18 +1,18 @@
 ﻿using _AutoParkData.Models;
 using _Business.Abstract;
 using DataAccess.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Concrete
 {
     public class PaymentsManager : IPaymentsService
     {
         private IPaymentsDal _paymentsDal;
-        public PaymentsManager(IPaymentsDal paymentsDal)
+        private ILogsDal _logsdal;
+        public PaymentsManager(IPaymentsDal paymentsDal, ILogsDal logsDal)
         {
             _paymentsDal = paymentsDal;
+            _logsdal = logsDal;
         }
         public void Add(Payments payments)
         {
@@ -32,13 +32,24 @@ namespace _Business.Concrete
 
         public List<Payments> GetById(int PaymentId)
         {
-            return _paymentsDal.GetList(l=>l.PaymId==PaymentId);
+            return _paymentsDal.GetList(l => l.PaymId == PaymentId);
         }
 
         public Payments GetPayments(int id)
         {
             var payments = _paymentsDal.Get(c => c.PaymId == id);
             return payments;
+        }
+
+        public bool GetPlateFromPaym(string plate)
+        {
+            var payt = _paymentsDal.Get(c => (c.PaymUserPlate == plate) && (c.LeftDay > 0));
+
+            if (payt != null)
+                return true;
+            else
+                return false;
+
         }
 
         public void Update(Payments payments)

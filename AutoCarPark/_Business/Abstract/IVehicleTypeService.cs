@@ -1,11 +1,9 @@
 ﻿using _AutoParkData.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Abstract
 {
-   public interface IVehicleTypeService
+    public interface IVehicleTypeService
     {
         List<VehicleTypes> GetAll();
         List<VehicleTypes> GetById(int vehicleid);

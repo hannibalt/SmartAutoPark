@@ -1,11 +1,9 @@
 ﻿using _AutoParkData.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Abstract
 {
-   public interface IModeratorsService
+    public interface IModeratorsService
     {
         List<Moderators> GetAll();
         List<Moderators> GetById(int moderatorId);
@@ -14,5 +12,6 @@ namespace _Business.Abstract
         void Add(Moderators moderators);
         void Update(Moderators moderators);
         void Delete(Moderators moderators);
+        Moderators GetUser(string username, string pass);
     }
 }

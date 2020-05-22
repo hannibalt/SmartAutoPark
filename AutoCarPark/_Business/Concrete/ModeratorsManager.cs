@@ -1,9 +1,7 @@
 ﻿using _AutoParkData.Models;
 using _Business.Abstract;
 using DataAccess.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Concrete
 {
@@ -26,7 +24,7 @@ namespace _Business.Concrete
 
         public List<Moderators> GetAll()
         {
-           return _moderatorsDal.GetList();
+            return _moderatorsDal.GetList();
         }
 
         public List<Moderators> GetById(int moderatorId)
@@ -43,6 +41,12 @@ namespace _Business.Concrete
         public void Update(Moderators moderators)
         {
             _moderatorsDal.Update(moderators);
+        }
+
+        public Moderators GetUser(string username, string pass)
+        {
+            var Moderators = _moderatorsDal.Get(c => (c.ModUsername == username) && (c.ModPassword == pass));
+            return Moderators;
         }
     }
 }

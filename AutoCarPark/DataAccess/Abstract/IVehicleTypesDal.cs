@@ -1,12 +1,9 @@
 ﻿using _AutoCarPark.DataAccess;
 using _AutoParkData.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Abstract
 {
-   public interface IVehicleTypesDal : IEntityRepository<VehicleTypes>
+    public interface IVehicleTypesDal : IEntityRepository<VehicleTypes>
     {
     }
 }

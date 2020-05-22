@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _AutoParkData.Models;
+﻿using _AutoParkData.Models;
 using _Business.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace _AutoParkApi.Controllers
 {
@@ -55,5 +51,6 @@ namespace _AutoParkApi.Controllers
         {
             return _logservice.GetLogsById(id);
         }
+
     }
 }

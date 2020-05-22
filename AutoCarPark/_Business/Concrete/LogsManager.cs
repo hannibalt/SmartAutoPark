@@ -1,15 +1,14 @@
 ﻿using _AutoParkData.Models;
 using _Business.Abstract;
 using DataAccess.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Concrete
 {
     public class LogsManager : ILogsService
     {
         private ILogsDal _logsDal;
+        //private PaymentsManager paymnah;
         public LogsManager(ILogsDal logsDal)
         {
             _logsDal = logsDal;
@@ -31,8 +30,10 @@ namespace _Business.Concrete
 
         public List<Logs> GetById(int logsid)
         {
-            return _logsDal.GetList(l=>l.LogId==logsid);
+            return _logsDal.GetList(l => l.LogId == logsid);
         }
+
+        
 
         public Logs GetLogsById(int id)
         {
@@ -43,7 +44,7 @@ namespace _Business.Concrete
         public void Update(Logs logs)
         {
             _logsDal.Update(logs);
-            
+
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using _AutoParkData.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _Business.Abstract
 {
@@ -14,5 +12,7 @@ namespace _Business.Abstract
         void Add(Payments payments);
         void Update(Payments payments);
         void Delete(Payments payments);
+        bool GetPlateFromPaym(string plate);
+
     }
 }

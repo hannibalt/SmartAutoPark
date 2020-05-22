@@ -1,16 +1,15 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
+﻿using _AutoParkProcessor.FileHelper;
+using _AutoParkProcessor.ImageProc;
 using AForge.Video;
 using AForge.Video.DirectShow;
-using _AutoParkProcessor.ImageProc;
-using _AutoParkProcessor.FileHelper;
-using System.IO.Ports;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Net.Http;
 using Newtonsoft.Json;
+using System;
+using System.Drawing;
+using System.IO;
+using System.IO.Ports;
+using System.Net.Http;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ControlSRC
 {
@@ -18,7 +17,6 @@ namespace ControlSRC
     {
         public MainScreen()
         {
-
             InitializeComponent();
         }
         private FilterInfoCollection webcam;//webcam isminde tanımladığımız değişken bilgisayara kaç kamera bağlıysa onları tutan bir dizi. 
@@ -45,7 +43,7 @@ namespace ControlSRC
             Convert.ToString(count);
             saveplace = samplepatch + @"\lastimage" + count + ".jpg";
             cevap = ImageEditor.processImageFile(saveplace);
-            txt_result.Text = Convert.ToString(cevap);
+            xuiResult.Text = Convert.ToString(cevap);
         }
         private void MainScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -59,6 +57,7 @@ namespace ControlSRC
         }
         private void Form1_Load_1(object sender, EventArgs e)
         {
+            lblparkId.Text = Convert.ToString(Properties.Settings.Default.PARKid);
             webcam = new FilterInfoCollection(FilterCategory.VideoInputDevice);//webcam dizisine mevcut kameraları dolduruyoruz.
             foreach (FilterInfo videocapturedevice in webcam)
             {
@@ -73,7 +72,22 @@ namespace ControlSRC
             cam.Start();
             onstream = 1;
         }
-        private void btn_screensave_Click(object sender, EventArgs e)
+        //private void btn_screensave_Click(object sender, EventArgs e)
+        //{
+        //    if (onstream == 1 && Folder != "")
+        //    {
+        //        string samplepatch = Folder;
+        //        string savereplace;
+        //        int count = Helper.CaughtFolder(samplepatch);
+        //        Convert.ToString(count);
+        //        savereplace = samplepatch + @"\lastimage" + count + ".jpg";
+        //        Firststate.Image.Save(savereplace);
+        //        LastStat.Image = Firststate.Image;
+        //    }
+        //    else
+        //        MessageBox.Show("Kamera Baglantısından Emin Olunuz!!");
+        //}
+        private void CatchImage()
         {
             if (onstream == 1 && Folder != "")
             {
@@ -110,7 +124,7 @@ namespace ControlSRC
             {
                 label1.Text = ArdunioData;                               //Gelen veriyi label2'ye yaz          
                 if (Convert.ToInt32(ArdunioData) < 70)
-                    this.Invoke(new EventHandler(btn_screensave_Click));
+                    CatchImage();
             }
             catch (Exception)
             {
@@ -154,11 +168,17 @@ namespace ControlSRC
             ArdunioReader.Write("0");
         }
 
-        private async void txt_result_TextChanged(object sender, EventArgs e)
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private async void xuiResult_TextChanged(object sender, EventArgs e)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44325/api/Users/UseCarPlate?carplate=01CZA77"))            
+                using (var response = await httpClient.GetAsync("https://localhost:44325/api/Users/UseCarPlate?carplate=01CZA77"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject(apiResponse);
@@ -170,8 +190,8 @@ namespace ControlSRC
 
                     }
                     else
-                        
-                    MessageBox.Show(result.ToString());
+
+                        MessageBox.Show(result.ToString());
 
                 }
             }

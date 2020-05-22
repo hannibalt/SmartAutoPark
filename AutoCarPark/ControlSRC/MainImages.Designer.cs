@@ -61,6 +61,26 @@ namespace ControlSRC {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap exit {
+            get {
+                object obj = ResourceManager.GetObject("exit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap exit1 {
+            get {
+                object obj = ResourceManager.GetObject("exit1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to C:\Users\Hannibal\source\repos\SmartAutoPark\AutoCarPark\icons8-folder-100.png.
         /// </summary>
         internal static string FindFolderIMG {
@@ -115,6 +135,26 @@ namespace ControlSRC {
         internal static System.Drawing.Bitmap icons8_video_message_451 {
             get {
                 object obj = ResourceManager.GetObject("icons8-video-message-451", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login {
+            get {
+                object obj = ResourceManager.GetObject("login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login_rounded_right {
+            get {
+                object obj = ResourceManager.GetObject("login-rounded-right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

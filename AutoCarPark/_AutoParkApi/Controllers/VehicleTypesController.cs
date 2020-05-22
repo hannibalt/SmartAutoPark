@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using _AutoParkData.Models;
+﻿using _AutoParkData.Models;
 using _Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace _AutoParkApi.Controllers
 {
@@ -19,7 +14,7 @@ namespace _AutoParkApi.Controllers
         {
             _vehicleTypeService = vehicleTypeService;
         }
-        
+
         //  [Route("GetAirports")]
         [HttpGet]
         public List<VehicleTypes> GetVehicleTypes()
@@ -45,11 +40,11 @@ namespace _AutoParkApi.Controllers
         [HttpPut("{id}")]
         public void PUT(VehicleTypes VehicleTypes)
         {
-           
+
             _vehicleTypeService.Update(VehicleTypes);
 
 
-            
+
         }
 
         // GET: api/Country/5

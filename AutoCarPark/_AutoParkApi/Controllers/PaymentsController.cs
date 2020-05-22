@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using _AutoParkData.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using _AutoParkData.Models;
 using _Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace _AutoParkApi.Controllers
 {
@@ -15,9 +10,11 @@ namespace _AutoParkApi.Controllers
     public class PaymentsController : ControllerBase
     {
         IPaymentsService _paymentsService;
-        public PaymentsController(IPaymentsService paymentsService)
+        ILogsService _logservice;
+        public PaymentsController(IPaymentsService paymentsService, ILogsService logsService)
         {
             _paymentsService = paymentsService;
+            _logservice = logsService;
         }
 
         //  [Route("GetAirports")]
@@ -55,5 +52,18 @@ namespace _AutoParkApi.Controllers
         {
             return _paymentsService.GetPayments(id);
         }
+        [HttpPost("logs")]
+        public bool GetPayments(Logs logs)
+        {
+            var result = _paymentsService.GetPlateFromPaym(logs.SubPlate);
+            if (result == true)
+            {
+                _logservice.Add(logs);
+            }
+
+            return result;
+        }
+
+
     }
 }
