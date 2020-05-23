@@ -64,12 +64,6 @@
     <Compile Include="Views\payusercontrol.Designer.cs">
       <DependentUpon>payusercontrol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SCR_Register.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SCR_Register.Designer.cs">
-      <DependentUpon>SCR_Register.cs</DependentUpon>
-    </Compile>
     <Compile Include="VModels\CarParks.cs" />
     <Compile Include="VModels\Moderators.cs" />
     <Compile Include="VModels\Payments.cs" />
@@ -91,9 +85,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\payusercontrol.resx">
       <DependentUpon>payusercontrol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SCR_Register.resx">
-      <DependentUpon>SCR_Register.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -149,6 +140,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tlpara.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\done.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
