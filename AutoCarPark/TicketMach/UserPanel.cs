@@ -95,7 +95,8 @@ namespace TicketMach
                 btn_register.BackColor = Color.Green;
                 btn_pay.BackColor = Color.Yellow;
                 Save_Data();
-
+                txteposta.Visible = true;
+                lbleposta.Visible = true;
             }
         }
 
@@ -104,6 +105,8 @@ namespace TicketMach
             pnlpay.Visible = false;
             btn_register.BackColor = Color.Yellow;
             btn_pay.BackColor = Color.Gray;
+            txteposta.Visible = false;
+            lbleposta.Visible = false;
         }
 
 
@@ -114,6 +117,9 @@ namespace TicketMach
             btn_pay.BackColor = Color.Green;
             btn_where.BackColor = Color.Green;
             pnllastpage.Visible = true;
+            txteposta.Visible = false;
+            lbleposta.Visible = false;
+            
         }
 
         private void btnclearpages_Click(object sender, EventArgs e)

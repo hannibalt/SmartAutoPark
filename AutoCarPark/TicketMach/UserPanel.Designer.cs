@@ -67,6 +67,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnclearpages = new System.Windows.Forms.Button();
             this.pnlpay = new System.Windows.Forms.Panel();
+            this.txteposta = new System.Windows.Forms.TextBox();
+            this.lbleposta = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.registerpnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -454,7 +456,7 @@
             this.pnllastpage.Controls.Add(this.ContextLbl);
             this.pnllastpage.Location = new System.Drawing.Point(3, 4);
             this.pnllastpage.Name = "pnllastpage";
-            this.pnllastpage.Size = new System.Drawing.Size(773, 622);
+            this.pnllastpage.Size = new System.Drawing.Size(773, 619);
             this.pnllastpage.TabIndex = 9;
             // 
             // ContextLbl
@@ -490,6 +492,8 @@
             // 
             // pnlpay
             // 
+            this.pnlpay.Controls.Add(this.lbleposta);
+            this.pnlpay.Controls.Add(this.txteposta);
             this.pnlpay.Controls.Add(this.pnllastpage);
             this.pnlpay.Controls.Add(this.btnnedit);
             this.pnlpay.Controls.Add(this.groupBox2);
@@ -499,6 +503,24 @@
             this.pnlpay.Name = "pnlpay";
             this.pnlpay.Size = new System.Drawing.Size(779, 626);
             this.pnlpay.TabIndex = 60;
+            // 
+            // txteposta
+            // 
+            this.txteposta.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txteposta.Location = new System.Drawing.Point(454, 405);
+            this.txteposta.Name = "txteposta";
+            this.txteposta.Size = new System.Drawing.Size(196, 28);
+            this.txteposta.TabIndex = 10;
+            // 
+            // lbleposta
+            // 
+            this.lbleposta.AutoSize = true;
+            this.lbleposta.Font = new System.Drawing.Font("Reem Kufi", 11.25F, System.Drawing.FontStyle.Bold);
+            this.lbleposta.Location = new System.Drawing.Point(272, 405);
+            this.lbleposta.Name = "lbleposta";
+            this.lbleposta.Size = new System.Drawing.Size(174, 28);
+            this.lbleposta.TabIndex = 11;
+            this.lbleposta.Text = "e-Fatura için E-Posta:";
             // 
             // UserPanel
             // 
@@ -525,6 +547,7 @@
             this.pnllastpage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.pnlpay.ResumeLayout(false);
+            this.pnlpay.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -570,6 +593,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnComplete;
+        private System.Windows.Forms.Label lbleposta;
+        private System.Windows.Forms.TextBox txteposta;
     }
 }
 
