@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SCR_Register));
             this.txt_name = new System.Windows.Forms.TextBox();
             this.txt_surname = new System.Windows.Forms.TextBox();
             this.txt_CarPlate = new System.Windows.Forms.TextBox();
@@ -37,9 +36,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.xuiSuperButton1 = new XanderUI.XUISuperButton();
             this.label5 = new System.Windows.Forms.Label();
+            this.lblcost = new System.Windows.Forms.Label();
+            this.btnApprove = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btntlicon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,10 +73,15 @@
             this.cmb_pay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_pay.Font = new System.Drawing.Font("Reem Kufi", 11.25F, System.Drawing.FontStyle.Bold);
             this.cmb_pay.FormattingEnabled = true;
+            this.cmb_pay.Items.AddRange(new object[] {
+            "20 GÜN",
+            "35 GÜN",
+            "40 GÜN"});
             this.cmb_pay.Location = new System.Drawing.Point(504, 221);
             this.cmb_pay.Name = "cmb_pay";
             this.cmb_pay.Size = new System.Drawing.Size(192, 36);
             this.cmb_pay.TabIndex = 3;
+            this.cmb_pay.SelectedIndexChanged += new System.EventHandler(this.cmb_pay_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -117,39 +123,6 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Araç Plakası:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::TicketMach.Properties.Resources.banner_removebg_preview1;
-            this.pictureBox1.Location = new System.Drawing.Point(87, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(433, 159);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // xuiSuperButton1
-            // 
-            this.xuiSuperButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(202)))), ((int)(((byte)(142)))));
-            this.xuiSuperButton1.ButtonImage = ((System.Drawing.Image)(resources.GetObject("xuiSuperButton1.ButtonImage")));
-            this.xuiSuperButton1.ButtonSmoothing = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            this.xuiSuperButton1.ButtonStyle = XanderUI.XUISuperButton.Style.RoundedEdges;
-            this.xuiSuperButton1.ButtonText = "Onayla";
-            this.xuiSuperButton1.CornerRadius = 5;
-            this.xuiSuperButton1.Font = new System.Drawing.Font("Rubik", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.xuiSuperButton1.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.xuiSuperButton1.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(217)))), ((int)(((byte)(174)))));
-            this.xuiSuperButton1.HoverTextColor = System.Drawing.Color.White;
-            this.xuiSuperButton1.ImagePosition = XanderUI.XUISuperButton.imgPosition.Left;
-            this.xuiSuperButton1.Location = new System.Drawing.Point(559, 421);
-            this.xuiSuperButton1.Name = "xuiSuperButton1";
-            this.xuiSuperButton1.SelectedBackColor = System.Drawing.Color.LimeGreen;
-            this.xuiSuperButton1.SelectedTextColor = System.Drawing.Color.White;
-            this.xuiSuperButton1.Size = new System.Drawing.Size(128, 56);
-            this.xuiSuperButton1.SuperSelected = false;
-            this.xuiSuperButton1.TabIndex = 9;
-            this.xuiSuperButton1.TextColor = System.Drawing.Color.White;
-            this.xuiSuperButton1.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.xuiSuperButton1.Click += new System.EventHandler(this.xuiSuperButton1_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -160,13 +133,60 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Ödeme Planı";
             // 
+            // lblcost
+            // 
+            this.lblcost.AutoSize = true;
+            this.lblcost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblcost.Font = new System.Drawing.Font("Reem Kufi", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lblcost.Location = new System.Drawing.Point(448, 325);
+            this.lblcost.Name = "lblcost";
+            this.lblcost.Size = new System.Drawing.Size(0, 39);
+            this.lblcost.TabIndex = 12;
+            // 
+            // btnApprove
+            // 
+            this.btnApprove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApprove.Font = new System.Drawing.Font("Reem Kufi", 9.749999F, System.Drawing.FontStyle.Bold);
+            this.btnApprove.Image = global::TicketMach.Properties.Resources.success_icon_png_53;
+            this.btnApprove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnApprove.Location = new System.Drawing.Point(535, 424);
+            this.btnApprove.Name = "btnApprove";
+            this.btnApprove.Size = new System.Drawing.Size(125, 63);
+            this.btnApprove.TabIndex = 11;
+            this.btnApprove.Text = "ONAYLA";
+            this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnApprove.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TicketMach.Properties.Resources.banner_removebg_preview1;
+            this.pictureBox1.Location = new System.Drawing.Point(87, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(433, 159);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btntlicon
+            // 
+            this.btntlicon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btntlicon.ForeColor = System.Drawing.Color.Transparent;
+            this.btntlicon.Image = global::TicketMach.Properties.Resources.tlpara;
+            this.btntlicon.Location = new System.Drawing.Point(516, 314);
+            this.btntlicon.Name = "btntlicon";
+            this.btntlicon.Size = new System.Drawing.Size(75, 58);
+            this.btntlicon.TabIndex = 13;
+            this.btntlicon.UseVisualStyleBackColor = true;
+            this.btntlicon.Visible = false;
+            // 
             // SCR_Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.btntlicon);
+            this.Controls.Add(this.lblcost);
+            this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.xuiSuperButton1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -178,6 +198,7 @@
             this.Controls.Add(this.txt_name);
             this.Name = "SCR_Register";
             this.Size = new System.Drawing.Size(724, 504);
+            this.Load += new System.EventHandler(this.SCR_Register_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -196,6 +217,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        public XanderUI.XUISuperButton xuiSuperButton1;
+        private System.Windows.Forms.Button btnApprove;
+        private System.Windows.Forms.Label lblcost;
+        private System.Windows.Forms.Button btntlicon;
     }
 }
