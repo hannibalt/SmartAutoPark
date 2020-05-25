@@ -54,5 +54,18 @@ namespace _AutoParkApi.Controllers
         {
             return _usersservice.GetUsersById(id);
         }
+
+        [HttpGet("GetUsersCarPlate/{carplate}")]
+        public bool GetUsersCarPlate(string carplate)
+        {
+            var b = _usersservice.GetByCarPlate(carplate);
+            if (b != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
     }
 }

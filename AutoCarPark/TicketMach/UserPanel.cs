@@ -4,16 +4,26 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Service.ServiceHelp;
+using Service.VMs;
+
 
 namespace TicketMach
 {
     public partial class UserPanel : Form
     {
+        Service.ServiceHelp.MailSender mailSender = new Service.ServiceHelp.MailSender();
+        Service.ServiceHelp.Client client = new Service.ServiceHelp.Client();
+        private static HttpClient httpClient = new HttpClient();
+
         public UserPanel()
         {
+
             InitializeComponent();
         }
 
@@ -29,6 +39,8 @@ namespace TicketMach
             txt_surname.Text = "";
             lblcost.Text = "";
             txt_CarPlate.Text = "";
+            txteposta.Text = "";
+            ContextLbl.Text = "Kayıt Başarı İle Oluşturulmuştur e-Fatura Mail İle İletilmiştir.";
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -42,20 +54,49 @@ namespace TicketMach
             lblcarplatesecond.Text = txt_CarPlate.Text;
             lblcostsecond.Text = lblcost.Text;
             lblleftday.Text = Convert.ToString(cmb_pay.Text);
-            lblcarpark.Text = "Sube Default";
+            lblcarpark.Text = "1";
         }
 
         private void Register_Click(object sender, EventArgs e)
         {
         }
 
-        private void UserPanel_Load(object sender, EventArgs e)
+        private async void UserPanel_Load(object sender, EventArgs e)
         {
             pnlpay.Visible = false;
             btn_register.BackColor = Color.Yellow;
             pnllastpage.Visible = false;
             btn_pay.BackColor = Color.Gray;
             btn_where.BackColor = Color.Gray;
+            cmb_pay.Items.Clear();
+
+
+            //using (var res = await httpclient.getasync("https://localhost:44332/api/carts%22))
+            //    {
+            //    var apiresponse = await res.content.readasstringasync();
+            //    //var result = jsonconvert.deserializeobject(apiresponse);
+            //    list<paymenttype> payments = jsonconvert.deserializeobject<list<paymenttype>>(apiresponse);
+            //}
+            //list<paymenttype> payments = jsonconvert.deserializeobject<list<paymenttype>>(apiresponse);
+
+            //Task<List<PaymentType>> Task<List><paymentType>  =  await client.PaymentTypesRequest();
+            //string result = await response.Content.ReadAsStringAsync();
+
+            //List<PaymentType> businessunits = JsonConvert.DeserializeObject<List<PaymentType>>(result);
+
+            var response = await httpClient.GetAsync("https://localhost:44325/api/PaymentType");
+            string result = await response.Content.ReadAsStringAsync();
+            List<PaymentType> businessunits = JsonConvert.DeserializeObject<List<PaymentType>>(result);
+            //var myobjList = JsonConvert.DeserializeObject<List<PaymentType>>(result);
+            //var myObj = myobjList[0];
+
+            for (int i = 0; i < businessunits.Count; i++)
+            {
+                cmb_pay.Items.Add(businessunits[i].PaymtValidity);
+
+            }
+
+
 
         }
 
@@ -111,15 +152,75 @@ namespace TicketMach
 
 
 
-        private void btnComplete_Click(object sender, EventArgs e)
+        private async void btnComplete_Click(object sender, EventArgs e)
         {
+            Users users = new Users();
+            Payments payments = new Payments();
+
+
+
+            int hasaccount = await client.HasAccountRequest(txt_CarPlate.Text);
+            if (Convert.ToInt32(hasaccount) == 0)
+            {
+                users.UseName = txt_name.Text;
+                users.UseSurname = txt_surname.Text;
+                users.UseCarPlate = txt_CarPlate.Text;
+                users.UseActive = false;
+
+                var b = await client.NewUserCreateRequest(users);
+
+                payments.ParkId = 1;
+                payments.LeftDay = Convert.ToInt32(lblleftday.Text);
+                payments.PaymCost = Convert.ToDecimal(cmb_pay.Text);
+                payments.PaymUserPlate = txt_CarPlate.Text;
+                var NewUserSuccesPayment = await client.CreatePayment(payments);
+            }
+            else
+            {
+                payments.ParkId = 1;
+                payments.LeftDay = Convert.ToInt32(lblleftday.Text);
+                payments.PaymCost = Convert.ToDecimal(cmb_pay.Text);
+                payments.PaymUserPlate = txt_CarPlate.Text;
+                var SuccesPayment = await client.CreatePayment(payments);
+            }
+
+            string cont = "";
+
+            if (txteposta.Text != "")
+            {
+
+                Service.ServiceHelp.MailSender mailSender = new Service.ServiceHelp.MailSender();
+                if (Convert.ToInt32(hasaccount) == 1)
+                {
+                    cont = txt_CarPlate.Text + "  Plaka için Zaten Kayıt Bulunmaktadır" + lblleftday.Text + "    Günlük Üyelik Alınmıştır. \n Tutar:" + lblcost.Text;
+
+                }
+                else
+                    cont = txt_CarPlate.Text + "  Plaka için" + lblleftday.Text + "    Günlük Kayıt alınmıştır. \n Tutar:" + lblcost.Text;
+
+                var i = mailSender.SendMail(txteposta.Text, cont);
+                if (i == false)
+                {
+                    ContextLbl.Text = "Eposta Hatalı Kayıt Oluşturuldu \n En Yakın Zamandaa Şubeden Faturanızı Alabilirsiniz";
+                    btn_register.BackColor = Color.Green;
+                    btn_pay.BackColor = Color.Green;
+                    btn_where.BackColor = Color.Green;
+                    pnllastpage.Visible = true;
+                    txteposta.Visible = false;
+                    lbleposta.Visible = false;
+                }
+
+
+            }
+            else
+                ContextLbl.Text = "Eposta  Adresi Girmediniz \n En Yakın Zamandaa Şubeden Faturanızı Alabilirsiniz";
             btn_register.BackColor = Color.Green;
             btn_pay.BackColor = Color.Green;
             btn_where.BackColor = Color.Green;
             pnllastpage.Visible = true;
             txteposta.Visible = false;
             lbleposta.Visible = false;
-            
+
         }
 
         private void btnclearpages_Click(object sender, EventArgs e)

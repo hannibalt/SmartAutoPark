@@ -43,7 +43,7 @@ namespace _Business.Concrete
 
         public bool GetPlateFromPaym(string plate)
         {
-            var payt = _paymentsDal.Get(c => (c.PaymUserPlate == plate) && (c.LeftDay > 0));
+            var payt = _paymentsDal.Get(c => (c.PaymUserPlate.ToLower().Contains(plate.ToLower())) && c.LeftDay > 0);
 
             if (payt != null)
                 return true;

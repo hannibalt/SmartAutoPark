@@ -27,6 +27,12 @@ namespace _Business.Concrete
             return _usersdal.GetList();
         }
 
+        public Users GetByCarPlate(string id)
+        {
+            return _usersdal.Get(l => l.UseCarPlate == id);
+
+        }
+
         public List<Users> GetById(int userid)
         {
             return _usersdal.GetList(l => l.UseId == userid);

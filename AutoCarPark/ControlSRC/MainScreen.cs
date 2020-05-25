@@ -10,6 +10,8 @@ using System.IO.Ports;
 using System.Net.Http;
 using System.Threading;
 using System.Windows.Forms;
+using ControlSRC.VModels;
+using System.Text;
 
 namespace ControlSRC
 {
@@ -43,7 +45,9 @@ namespace ControlSRC
             Convert.ToString(count);
             saveplace = samplepatch + @"\lastimage" + count + ".jpg";
             cevap = ImageEditor.processImageFile(saveplace);
-            xuiResult.Text = Convert.ToString(cevap);
+            txt_result.Text = Convert.ToString(cevap);
+
+            //xuiResult.Text = Convert.ToString(cevap);
         }
         private void MainScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -177,19 +181,33 @@ namespace ControlSRC
             this.Dispose();
         }
 
-        private async void xuiResult_TextChanged(object sender, EventArgs e)
+        //private async void xuiResult_TextChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        private async void txt_result_TextChanged(object sender, EventArgs e)
         {
+            Logs logs = new Logs();
+            logs.SubPlate = txt_result.Text;
+            logs.VehicleType = 1;
+            logs.ParkId = Properties.Settings.Default.PARKid;
+
+
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44325/api/Users/UseCarPlate?carplate=01CZA77"))
+                var convertModel = JsonConvert.SerializeObject(logs);
+                var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PostAsync("https://localhost:44325/api/Payments/logs", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
+
                     var result = JsonConvert.DeserializeObject(apiResponse);
                     if (Convert.ToBoolean(result) == true)
                     {
-                        ArdunioReader.Write("1");
-                        Thread.Sleep(50000);
-                        ArdunioReader.Write("0");
+                        //ArdunioReader.Write("1");
+                        //Thread.Sleep(9000);
+                        //ArdunioReader.Write("0");
 
                     }
                     else
@@ -198,6 +216,11 @@ namespace ControlSRC
 
                 }
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            txt_result.Text = "01CZA77";
         }
 
         private void Btn_SourceCheck_Click(object sender, EventArgs e)

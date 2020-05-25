@@ -11,10 +11,12 @@ namespace _AutoParkApi.Controllers
     {
         IPaymentsService _paymentsService;
         ILogsService _logservice;
-        public PaymentsController(IPaymentsService paymentsService, ILogsService logsService)
+        IUsersService _usersService;
+        public PaymentsController(IPaymentsService paymentsService, ILogsService logsService, IUsersService usersService)
         {
             _paymentsService = paymentsService;
             _logservice = logsService;
+            _usersService = usersService;
         }
 
         //  [Route("GetAirports")]
@@ -58,7 +60,16 @@ namespace _AutoParkApi.Controllers
             var result = _paymentsService.GetPlateFromPaym(logs.SubPlate);
             if (result == true)
             {
-                _logservice.Add(logs);
+                var userinfo = _usersService.GetByCarPlate(logs.SubPlate);
+
+                if (userinfo.UseActive == true)
+                {
+                    _logservice.Add(logs);
+
+                }
+                else
+                    return false;
+
             }
 
             return result;

@@ -125,6 +125,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VModels\CarParkscs.cs" />
+    <Compile Include="VModels\Logs.cs" />
     <Compile Include="VModels\Moderators.cs" />
     <EmbeddedResource Include="LoginPage.resx">
       <DependentUpon>LoginPage.cs</DependentUpon>

@@ -9,6 +9,8 @@ namespace _Business.Abstract
         List<Users> GetById(int userid);
 
         Users GetUsersById(int id);
+        Users GetByCarPlate(string id);
+
         void Add(Users users);
         void Update(Users users);
         void Delete(Users users);

@@ -49,6 +49,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblparkId = new System.Windows.Forms.Label();
             this.xuiResult = new XanderUI.XUIBanner();
+            this.txt_result = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LastStat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pc_procesone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Firststate)).BeginInit();
@@ -238,7 +241,33 @@
             this.xuiResult.Name = "xuiResult";
             this.xuiResult.Size = new System.Drawing.Size(187, 44);
             this.xuiResult.TabIndex = 43;
-            this.xuiResult.TextChanged += new System.EventHandler(this.xuiResult_TextChanged);
+            //this.xuiResult.TextChanged += new System.EventHandler(this.xuiResult_TextChanged);
+            // 
+            // txt_result
+            // 
+            this.txt_result.AutoSize = true;
+            this.txt_result.Location = new System.Drawing.Point(466, 438);
+            this.txt_result.Name = "txt_result";
+            this.txt_result.Size = new System.Drawing.Size(0, 13);
+            this.txt_result.TabIndex = 44;
+            this.txt_result.TextChanged += new System.EventHandler(this.txt_result_TextChanged);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(343, 394);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 45;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(502, 394);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 46;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainScreen
             // 
@@ -246,6 +275,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(161)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1232, 613);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txt_result);
             this.Controls.Add(this.xuiResult);
             this.Controls.Add(this.lblparkId);
             this.Controls.Add(this.panel1);
@@ -295,6 +327,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblparkId;
         private XanderUI.XUIBanner xuiResult;
+        private System.Windows.Forms.Label txt_result;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

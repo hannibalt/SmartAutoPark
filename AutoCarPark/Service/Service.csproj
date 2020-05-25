@@ -46,7 +46,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHelp\Client.cs" />
+    <Compile Include="ServiceHelp\MailSender.cs" />
+    <Compile Include="VMs\CarParks.cs" />
+    <Compile Include="VMs\Logs.cs" />
     <Compile Include="VMs\Moderators.cs" />
+    <Compile Include="VMs\Payments.cs" />
+    <Compile Include="VMs\PaymentTypes.cs" />
+    <Compile Include="VMs\Users.cs" />
+    <Compile Include="VMs\VehicleTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
