@@ -105,6 +105,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminRoot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminRoot.Designer.cs">
+      <DependentUpon>AdminRoot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApproveScreen.Designer.cs">
+      <DependentUpon>ApproveScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +139,12 @@
     <Compile Include="VModels\CarParkscs.cs" />
     <Compile Include="VModels\Logs.cs" />
     <Compile Include="VModels\Moderators.cs" />
+    <EmbeddedResource Include="AdminRoot.resx">
+      <DependentUpon>AdminRoot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApproveScreen.resx">
+      <DependentUpon>ApproveScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginPage.resx">
       <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +163,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -186,9 +205,13 @@
     <None Include="Resources\icons8-door-symbol-45.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\return.png" />
+    <None Include="Resources\sjoerdverbeek-schiphol-icondesign-large-parking-removebg-preview.png" />
     <None Include="Resources\login-rounded-right.png" />
     <None Include="Resources\exit.png" />
     <None Include="Resources\exit1.png" />
+    <None Include="Resources\download-payment-icon-2-ask-the-expert-payment-png-image-with-no-payment-png-500_501.png" />
+    <None Include="Resources\cash-in-hand.png" />
     <Content Include="Resources\login.png" />
     <None Include="Resources\login1.png" />
   </ItemGroup>

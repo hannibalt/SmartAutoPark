@@ -53,5 +53,6 @@ namespace _AutoParkApi.Controllers
         {
             return _paymentsTypeService.GetPaymentType(id);
         }
+       
     }
 }

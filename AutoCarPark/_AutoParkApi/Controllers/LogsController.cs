@@ -26,6 +26,7 @@ namespace _AutoParkApi.Controllers
         public void POST(Logs logs)
         {
             _logservice.Add(logs);
+
         }
         // DELETE: api/Deleteairports
         //    [Route("Deleteairports")]

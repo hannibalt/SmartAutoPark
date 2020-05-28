@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace _AutoParkData.Models
 {
@@ -16,6 +18,7 @@ namespace _AutoParkData.Models
         public virtual DbSet<CarParks> CarParks { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Moderators> Moderators { get; set; }
+        public virtual DbSet<OldPayment> OldPayment { get; set; }
         public virtual DbSet<PaymentType> PaymentType { get; set; }
         public virtual DbSet<Payments> Payments { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -35,7 +38,7 @@ namespace _AutoParkData.Models
             modelBuilder.Entity<CarParks>(entity =>
             {
                 entity.HasKey(e => e.ParkId)
-                    .HasName("PK__CarParks__B255A1091A8D4DB8");
+                    .HasName("PK__CarParks__B255A109AF1ED22F");
 
                 entity.Property(e => e.ParkId).HasColumnName("Park_Id");
 
@@ -53,7 +56,7 @@ namespace _AutoParkData.Models
             modelBuilder.Entity<Logs>(entity =>
             {
                 entity.HasKey(e => e.LogId)
-                    .HasName("PK__Logs__2D26E78E5A1B09A4");
+                    .HasName("PK__Logs__2D26E78EFDCFBD05");
 
                 entity.Property(e => e.LogId).HasColumnName("Log_Id");
 
@@ -77,19 +80,19 @@ namespace _AutoParkData.Models
                 entity.HasOne(d => d.Park)
                     .WithMany(p => p.Logs)
                     .HasForeignKey(d => d.ParkId)
-                    .HasConstraintName("FK__Logs__ParkId__4E88ABD4");
+                    .HasConstraintName("FK__Logs__ParkId__4D94879B");
 
                 entity.HasOne(d => d.SubPlateNavigation)
                     .WithMany(p => p.Logs)
                     .HasPrincipalKey(p => p.UseCarPlate)
                     .HasForeignKey(d => d.SubPlate)
-                    .HasConstraintName("FK__Logs__Sub_Plate__4D94879B");
+                    .HasConstraintName("FK__Logs__Sub_Plate__4CA06362");
             });
 
             modelBuilder.Entity<Moderators>(entity =>
             {
                 entity.HasKey(e => e.ModId)
-                    .HasName("PK__Moderato__D5F2725B97381394");
+                    .HasName("PK__Moderato__D5F2725B23BAA749");
 
                 entity.Property(e => e.ModId).HasColumnName("Mod_Id");
 
@@ -111,10 +114,28 @@ namespace _AutoParkData.Models
                     .HasConstraintName("FK__Moderator__ByPar__3A81B327");
             });
 
+            modelBuilder.Entity<OldPayment>(entity =>
+            {
+                entity.HasKey(e => e.LogId)
+                    .HasName("PK__OldPayme__2D26E78E69F5F3C9");
+
+                entity.Property(e => e.LogId).HasColumnName("Log_Id");
+
+                entity.Property(e => e.EventDate).HasColumnType("date");
+
+                entity.Property(e => e.PaymCost)
+                    .HasColumnName("Paym_Cost")
+                    .HasColumnType("money");
+
+                entity.Property(e => e.PaymId).HasColumnName("Paym_Id");
+
+                entity.Property(e => e.PaymUserPlate).HasMaxLength(11);
+            });
+
             modelBuilder.Entity<PaymentType>(entity =>
             {
                 entity.HasKey(e => e.PaymType)
-                    .HasName("PK__PaymentT__9E1F691EE7CAA790");
+                    .HasName("PK__PaymentT__9E1F691E0A05B1F3");
 
                 entity.Property(e => e.PaymtQuantity).HasColumnType("money");
 
@@ -124,7 +145,7 @@ namespace _AutoParkData.Models
             modelBuilder.Entity<Payments>(entity =>
             {
                 entity.HasKey(e => e.PaymId)
-                    .HasName("PK__Payments__22190F5FFDC6CA66");
+                    .HasName("PK__Payments__22190F5F3B3F507F");
 
                 entity.Property(e => e.PaymId).HasColumnName("Paym_Id");
 
@@ -141,22 +162,16 @@ namespace _AutoParkData.Models
                 entity.HasOne(d => d.Park)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.ParkId)
-                    .HasConstraintName("FK__Payments__ParkId__48CFD27E");
-
-                entity.HasOne(d => d.PaymUserPlateNavigation)
-                    .WithMany(p => p.Payments)
-                    .HasPrincipalKey(p => p.UseCarPlate)
-                    .HasForeignKey(d => d.PaymUserPlate)
                     .HasConstraintName("FK__Payments__EventD__47DBAE45");
             });
 
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UseId)
-                    .HasName("PK__Users__09268C612802FBCD");
+                    .HasName("PK__Users__09268C6192981CCD");
 
                 entity.HasIndex(e => e.UseCarPlate)
-                    .HasName("UQ__Users__EB1AE3528B72568E")
+                    .HasName("UQ__Users__EB1AE3521FD6A3B3")
                     .IsUnique();
 
                 entity.Property(e => e.UseId).HasColumnName("Use_Id");
@@ -189,7 +204,7 @@ namespace _AutoParkData.Models
             modelBuilder.Entity<VehicleTypes>(entity =>
             {
                 entity.HasKey(e => e.TypeId)
-                    .HasName("PK__VehicleT__516F03B507997C07");
+                    .HasName("PK__VehicleT__516F03B59E9CC25C");
 
                 entity.Property(e => e.TypeName).HasMaxLength(15);
             });

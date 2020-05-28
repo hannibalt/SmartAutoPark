@@ -26,6 +26,11 @@ namespace _AutoParkApi.Controllers
             return _paymentsService.GetAll();
         }
         //    [Route("AddAirports")]
+        [HttpGet("ParkId")]
+        public List<Payments> GetUnApproved(int ParkId)
+        {
+            return _paymentsService.GetAllUnApproved(ParkId);
+        }
         [HttpPost]
         public void POST(Payments payments)
         {
@@ -40,12 +45,17 @@ namespace _AutoParkApi.Controllers
             _paymentsService.Delete(payments);
         }
         // PUT: api/CountryPut
-        //     [Route("EditCountry")]
-        [HttpPut("{id}")]
+        [HttpPut]
         public void PUT(Payments pay)
         {
             _paymentsService.Update(pay);
+
         }
+        //[HttpPut("{id}")]
+        //public void PUT(Payments pay)
+        //{
+        //    _paymentsService.Update(pay);
+        //}
 
         // GET: api/Country/5
         //      [Route("GetByIdAirports")]
@@ -54,11 +64,27 @@ namespace _AutoParkApi.Controllers
         {
             return _paymentsService.GetPayments(id);
         }
+
+        [HttpPost("payments")]
+        public int GetPaymentsForPlate(Payments payments)
+        {
+            var result = _paymentsService.GetPaymentsForPlate(payments.PaymUserPlate);
+            if (result == 0)
+            {
+                return 0;
+
+
+            }
+            else
+                return 1;
+
+        }
+
         [HttpPost("logs")]
-        public bool GetPayments(Logs logs)
+        public int GetPayments(Logs logs)
         {
             var result = _paymentsService.GetPlateFromPaym(logs.SubPlate);
-            if (result == true)
+            if (result == 2)
             {
                 var userinfo = _usersService.GetByCarPlate(logs.SubPlate);
 
@@ -68,9 +94,12 @@ namespace _AutoParkApi.Controllers
 
                 }
                 else
-                    return false;
+                    return 0;
 
             }
+            else
+                return 0;
+
 
             return result;
         }

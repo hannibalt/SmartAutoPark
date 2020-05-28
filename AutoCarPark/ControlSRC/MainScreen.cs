@@ -10,8 +10,9 @@ using System.IO.Ports;
 using System.Net.Http;
 using System.Threading;
 using System.Windows.Forms;
-using ControlSRC.VModels;
 using System.Text;
+using Service.VMs;
+using Service.ServiceHelp;
 
 namespace ControlSRC
 {
@@ -24,7 +25,17 @@ namespace ControlSRC
         private FilterInfoCollection webcam;//webcam isminde tanımladığımız değişken bilgisayara kaç kamera bağlıysa onları tutan bir dizi. 
         private VideoCaptureDevice cam;//cam ise bizim kullanacağımız aygıt
         string cevap = "", Folder = "";
+        bool stop = false;
+        Client client = new Client();
         FileHelper Helper = new FileHelper();
+        private void GetBack()
+        {
+            AdminRoot ScreenTWO = new AdminRoot();
+            ScreenTWO.Show();
+            this.Hide();
+            ArdunioReader.Close();
+
+        }
         int onstream = 0;
         private string ArdunioData;   //ardunio data değişkenini oluştur
 
@@ -45,9 +56,13 @@ namespace ControlSRC
             Convert.ToString(count);
             saveplace = samplepatch + @"\lastimage" + count + ".jpg";
             cevap = ImageEditor.processImageFile(saveplace);
-            txt_result.Text = Convert.ToString(cevap);
+            if (cevap != "")
+            {
+                txt_result.Text = Convert.ToString(cevap).Trim();
 
-            //xuiResult.Text = Convert.ToString(cevap);
+            }
+
+            OpenCamera();
         }
         private void MainScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -69,21 +84,28 @@ namespace ControlSRC
             }
             cmb_CamList.SelectedIndex = 0; //Comboboxtaki ilk index numaralı kameranın ekranda görünmesi için
         }
+        private void OpenCamera()
+        {
+            cam = new VideoCaptureDevice(webcam[cmb_CamList.SelectedIndex].MonikerString);
+            cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
+            cam.Start();
+            onstream = 1;
+            btn_camconnect.BackColor = Color.Green;
+        }
+
         private void btn_camconnect_Click_1(object sender, EventArgs e)
         {
             if (onstream == 0)
             {
-                cam = new VideoCaptureDevice(webcam[cmb_CamList.SelectedIndex].MonikerString);
-                cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
-                cam.Start();
-                onstream = 1;
-                btn_camconnect.BackColor = Color.Green;
 
+                OpenCamera();
             }
         }
 
+
         private void CatchImage()
         {
+
             if (onstream == 1 && Folder != "")
             {
                 string samplepatch = Folder;
@@ -92,10 +114,16 @@ namespace ControlSRC
                 Convert.ToString(count);
                 savereplace = samplepatch + @"\lastimage" + count + ".jpg";
                 Firststate.Image.Save(savereplace);
+                if (LastStat.Image != null)
+                    Firststate.Image = null;
                 LastStat.Image = Firststate.Image;
+                cam.SignalToStop();
+                stop = false;
             }
             else
                 MessageBox.Show("Kamera Baglantısından Emin Olunuz!!");
+
+
         }
         private void btn_prosss_Click(object sender, EventArgs e)
         {
@@ -116,39 +144,62 @@ namespace ControlSRC
                 this.Invoke(new EventHandler(displayData_event));
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Sensör Hatası!!");
+                MessageBox.Show(ex.ToString());
+                //cam.Start();
+
 
             }
 
 
         }
+
         private void displayData_event(object sender, EventArgs e)
         {
             try
             {
-                label1.Text = ArdunioData;                               //Gelen veriyi label2'ye yaz          
+                label1.Text = ArdunioData;
+                //Gelen veriyi label2'ye yaz //
                 if (Convert.ToInt32(ArdunioData) < 70)
-                    CatchImage();
+                {
+                    if (stop == false)
+                    {
+                        stop = true;
+                        if (stop == true)
+                            CatchImage();
+                    }
+
+                }
+
+
+
+
             }
             catch (Exception)
             {
-                throw;
+                cam.Start();
+                stop = false;
+
+
             }
         }
-
+        private void ArdunioCreater()
+        {
+            ArdunioReader = new SerialPort();
+            ArdunioReader.PortName = "COM3";       //Port ismini comboBox1'in text'i olarak belirle
+            ArdunioReader.BaudRate = 9600;
+            ArdunioReader.Open();
+            ArdunioReader.DataReceived += new SerialDataReceivedEventHandler(ArdunioReader_DataReceived); //DataReceived eventini oluşturma  
+        }
         private void CheckDoor_Click(object sender, EventArgs e)
         {
             try
             {
-                ArdunioReader = new SerialPort();
-                ArdunioReader.PortName = "COM3";       //Port ismini comboBox1'in text'i olarak belirle
-                ArdunioReader.BaudRate = 9600;
-                ArdunioReader.Open();
-                ArdunioReader.DataReceived += new SerialDataReceivedEventHandler(ArdunioReader_DataReceived); //DataReceived eventini oluşturma                                                                                                            //Seri portu aç
+                ArdunioCreater();                                                                                         //Seri portu aç
                 CheckDoor.Enabled = false;
                 CheckDoor.BackColor = Color.Green;
+
                 //"Bağlan" butonunu tıklanamaz yap
             }
             catch (Exception ex)
@@ -188,39 +239,52 @@ namespace ControlSRC
 
         private async void txt_result_TextChanged(object sender, EventArgs e)
         {
-            Logs logs = new Logs();
-            logs.SubPlate = txt_result.Text;
-            logs.VehicleType = 1;
-            logs.ParkId = Properties.Settings.Default.PARKid;
-
-
-            using (var httpClient = new HttpClient())
+            if (txt_result.Text == "")
             {
-                var convertModel = JsonConvert.SerializeObject(logs);
-                var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync("https://localhost:44325/api/Payments/logs", content))
+                return;
+            }
+            else
+            {
+                Logs logs = new Logs();
+                logs.SubPlate = txt_result.Text.Trim();
+                logs.VehicleType = 1;
+                logs.ParkId = Properties.Settings.Default.PARKid;
+
+                var OpenTheDoor = await client.UserActive(txt_result.Text.Trim());
+
+                if (OpenTheDoor == 1)
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
 
-                    var result = JsonConvert.DeserializeObject(apiResponse);
-                    if (Convert.ToBoolean(result) == true)
-                    {
-                        //ArdunioReader.Write("1");
-                        //Thread.Sleep(9000);
-                        //ArdunioReader.Write("0");
+                    var SuccesLog = await client.NewLog(logs);
 
-                    }
-                    else
 
-                        MessageBox.Show(result.ToString());
+                    ArdunioReader.Write("1");
 
                 }
+                OpenCamera();
+                stop = false;
+
             }
+
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        private void Btn_GetBack_Click(object sender, EventArgs e)
         {
-            txt_result.Text = "01CZA77";
+            GetBack();
+        }
+
+        private void btntriggercam_Click(object sender, EventArgs e)
+        {
+            txt_result.Text = "";
+            txt_result.Text = "16NOG95";
+            OpenCamera();
+
+        }
+
+        private void BTN_RECORDON_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Btn_SourceCheck_Click(object sender, EventArgs e)

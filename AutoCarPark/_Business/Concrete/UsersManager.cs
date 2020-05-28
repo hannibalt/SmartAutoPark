@@ -29,7 +29,7 @@ namespace _Business.Concrete
 
         public Users GetByCarPlate(string id)
         {
-            return _usersdal.Get(l => l.UseCarPlate == id);
+            return _usersdal.Get(l => l.UseCarPlate.ToLower().Contains(id.ToLower()));
 
         }
 
@@ -42,6 +42,12 @@ namespace _Business.Concrete
         {
             var users = _usersdal.Get(c => c.UseId == id);
             return users;
+        }
+
+        public Users IsUserActive(string nameplate)
+        {
+            var result = _usersdal.Get(c => (c.UseCarPlate == nameplate) && c.UseActive == true);
+            return result;
         }
 
         public void Update(Users users)

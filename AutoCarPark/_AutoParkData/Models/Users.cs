@@ -1,4 +1,5 @@
 ﻿using _AutoCarPark.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace _AutoParkData.Models
@@ -8,7 +9,6 @@ namespace _AutoParkData.Models
         public Users()
         {
             Logs = new HashSet<Logs>();
-            Payments = new HashSet<Payments>();
         }
 
         public int UseId { get; set; }
@@ -20,6 +20,5 @@ namespace _AutoParkData.Models
 
         public virtual VehicleTypes Typ { get; set; }
         public virtual ICollection<Logs> Logs { get; set; }
-        public virtual ICollection<Payments> Payments { get; set; }
     }
 }

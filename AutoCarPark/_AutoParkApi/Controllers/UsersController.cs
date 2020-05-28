@@ -67,5 +67,13 @@ namespace _AutoParkApi.Controllers
                 return false;
         }
 
+        [HttpGet("getusersactive/{carplate}")]
+
+        public Users GetUserActive(string carplate)
+        {
+            var result = _usersservice.IsUserActive(carplate);
+            return result;
+        }
+
     }
 }

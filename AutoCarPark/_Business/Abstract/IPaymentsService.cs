@@ -7,12 +7,14 @@ namespace _Business.Abstract
     {
         List<Payments> GetAll();
         List<Payments> GetById(int PaymentId);
+        List<Payments> GetAllUnApproved(int ParkId);
 
         Payments GetPayments(int id);
         void Add(Payments payments);
         void Update(Payments payments);
         void Delete(Payments payments);
-        bool GetPlateFromPaym(string plate);
+        int GetPlateFromPaym(string plate);
+        int GetPaymentsForPlate(string plate);
 
     }
 }

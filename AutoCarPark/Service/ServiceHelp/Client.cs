@@ -94,23 +94,97 @@ namespace Service.ServiceHelp
             else
                 return 0;
         }
-        public async Task<int> HasAccountRequest(Logs plate)
+        public async Task<int> HasBills(Payments payments)
         {
-            //var convertModel = JsonConvert.SerializeObject(plate);
-            //var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
-            //httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            var response = await httpClient.GetAsync("https://localhost:44325/api/Users/GetUsersCarPlate/" + plate);
+            var convertModel = JsonConvert.SerializeObject(payments);
+            var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            var response = await httpClient.PostAsync("https://localhost:44325/api/Payments/payments", content);
             string apiResponse = await response.Content.ReadAsStringAsync();
 
 
-            if (apiResponse != "false")
+            if (Convert.ToInt32(apiResponse) != 1)
             {
+                return 0;
+            }
+            else
+                return 1;
+        }
+        public async Task<int> CameraPlate(Logs plate)
+        {
+
+            var convertModel = JsonConvert.SerializeObject(plate);
+            var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("https://localhost:44325/api/Payments/logs", content))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject(apiResponse);
+                if (Convert.ToBoolean(result) == true)
+                {
+                    return 1;
+
+                }
+                else
+                    return 0;
+
+
+            }
+        }
+        public async Task<List<Payments>> UnApprovedPayments(int parkid)
+        {
+
+            var response = await httpClient.GetAsync("https://localhost:44325/api/Payments/ParkId?ParkId=" + parkid);
+            string result = await response.Content.ReadAsStringAsync();
+            List<Payments> businessunits = JsonConvert.DeserializeObject<List<Payments>>(result);
+
+            //List<PaymentType> apiResponse = await response.Content.ReadAsStringAsync();
+
+            return businessunits;
+
+
+        }
+        public async Task<int> UserActive(string plate)
+        {
+
+            var response = await httpClient.GetAsync("https://localhost:44325/api/Users/getusersactive/" + plate);
+            string result = await response.Content.ReadAsStringAsync();
+            if (result != "")
+            {
+                Users businessunits = JsonConvert.DeserializeObject<Users>(result);
                 return 1;
             }
             else
                 return 0;
-        }
 
+
+
+        }
+        public async Task<int> NewLog(Logs logs)
+        {
+            var convertModel = JsonConvert.SerializeObject(logs);
+            var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("https://localhost:44325/api/Logs", content))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject(apiResponse);
+                if (result == "")
+                {
+                    return 0;
+                }
+                else if (Convert.ToBoolean(result) == true)
+                {
+                    return 1;
+
+                }
+                else
+                    return 0;
+
+
+            }
+        }
 
     }
 }

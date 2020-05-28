@@ -48,10 +48,11 @@
             this.btnexit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblparkId = new System.Windows.Forms.Label();
-            this.xuiResult = new XanderUI.XUIBanner();
             this.txt_result = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btntriggercam = new System.Windows.Forms.Button();
+            this.Btn_GetBack = new System.Windows.Forms.Button();
+            this.BTN_RECORDON = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LastStat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pc_procesone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Firststate)).BeginInit();
@@ -230,44 +231,53 @@
             this.lblparkId.TabIndex = 42;
             this.lblparkId.Text = "lblparkId";
             // 
-            // xuiResult
-            // 
-            this.xuiResult.BackColor = System.Drawing.Color.Transparent;
-            this.xuiResult.BannerColor = System.Drawing.Color.Transparent;
-            this.xuiResult.BorderColor = System.Drawing.Color.White;
-            this.xuiResult.Font = new System.Drawing.Font("Rubik", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xuiResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(174)))), ((int)(((byte)(185)))));
-            this.xuiResult.Location = new System.Drawing.Point(251, 471);
-            this.xuiResult.Name = "xuiResult";
-            this.xuiResult.Size = new System.Drawing.Size(187, 44);
-            this.xuiResult.TabIndex = 43;
-            //this.xuiResult.TextChanged += new System.EventHandler(this.xuiResult_TextChanged);
-            // 
             // txt_result
             // 
             this.txt_result.AutoSize = true;
-            this.txt_result.Location = new System.Drawing.Point(466, 438);
+            this.txt_result.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_result.Location = new System.Drawing.Point(358, 499);
             this.txt_result.Name = "txt_result";
-            this.txt_result.Size = new System.Drawing.Size(0, 13);
+            this.txt_result.Size = new System.Drawing.Size(0, 47);
             this.txt_result.TabIndex = 44;
             this.txt_result.TextChanged += new System.EventHandler(this.txt_result_TextChanged);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(343, 394);
+            this.textBox2.Location = new System.Drawing.Point(366, 397);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 45;
             // 
-            // button3
+            // btntriggercam
             // 
-            this.button3.Location = new System.Drawing.Point(502, 394);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 46;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btntriggercam.Location = new System.Drawing.Point(525, 397);
+            this.btntriggercam.Name = "btntriggercam";
+            this.btntriggercam.Size = new System.Drawing.Size(75, 23);
+            this.btntriggercam.TabIndex = 46;
+            this.btntriggercam.Text = "button3";
+            this.btntriggercam.UseVisualStyleBackColor = true;
+            this.btntriggercam.Click += new System.EventHandler(this.btntriggercam_Click);
+            // 
+            // Btn_GetBack
+            // 
+            this.Btn_GetBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_GetBack.ForeColor = System.Drawing.Color.Transparent;
+            this.Btn_GetBack.Image = global::ControlSRC.Properties.Resources._return;
+            this.Btn_GetBack.Location = new System.Drawing.Point(1111, 499);
+            this.Btn_GetBack.Name = "Btn_GetBack";
+            this.Btn_GetBack.Size = new System.Drawing.Size(109, 102);
+            this.Btn_GetBack.TabIndex = 47;
+            this.Btn_GetBack.UseVisualStyleBackColor = true;
+            this.Btn_GetBack.Click += new System.EventHandler(this.Btn_GetBack_Click);
+            // 
+            // BTN_RECORDON
+            // 
+            this.BTN_RECORDON.Location = new System.Drawing.Point(767, 396);
+            this.BTN_RECORDON.Name = "BTN_RECORDON";
+            this.BTN_RECORDON.Size = new System.Drawing.Size(75, 91);
+            this.BTN_RECORDON.TabIndex = 48;
+            this.BTN_RECORDON.UseVisualStyleBackColor = true;
+            this.BTN_RECORDON.Click += new System.EventHandler(this.BTN_RECORDON_Click);
             // 
             // MainScreen
             // 
@@ -275,10 +285,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(161)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1232, 613);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.BTN_RECORDON);
+            this.Controls.Add(this.Btn_GetBack);
+            this.Controls.Add(this.btntriggercam);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.txt_result);
-            this.Controls.Add(this.xuiResult);
             this.Controls.Add(this.lblparkId);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnexit);
@@ -326,10 +337,11 @@
         private System.Windows.Forms.Button btnexit;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblparkId;
-        private XanderUI.XUIBanner xuiResult;
         private System.Windows.Forms.Label txt_result;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btntriggercam;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button Btn_GetBack;
+        private System.Windows.Forms.Button BTN_RECORDON;
     }
 }
 

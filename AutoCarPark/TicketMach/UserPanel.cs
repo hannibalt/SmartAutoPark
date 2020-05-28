@@ -71,6 +71,7 @@ namespace TicketMach
             cmb_pay.Items.Clear();
 
 
+
             //using (var res = await httpclient.getasync("https://localhost:44332/api/carts%22))
             //    {
             //    var apiresponse = await res.content.readasstringasync();
@@ -154,6 +155,7 @@ namespace TicketMach
 
         private async void btnComplete_Click(object sender, EventArgs e)
         {
+            int succes = 0;
             Users users = new Users();
             Payments payments = new Payments();
 
@@ -166,27 +168,51 @@ namespace TicketMach
                 users.UseSurname = txt_surname.Text;
                 users.UseCarPlate = txt_CarPlate.Text;
                 users.UseActive = false;
-
                 var b = await client.NewUserCreateRequest(users);
 
                 payments.ParkId = 1;
-                payments.LeftDay = Convert.ToInt32(lblleftday.Text);
-                payments.PaymCost = Convert.ToDecimal(cmb_pay.Text);
+                payments.LeftDay = Convert.ToInt32(cmb_pay.Text);
+                payments.PaymCost = Convert.ToDecimal(lblcost.Text);
                 payments.PaymUserPlate = txt_CarPlate.Text;
+                payments.EventDate = Convert.ToDateTime(null);
+
                 var NewUserSuccesPayment = await client.CreatePayment(payments);
             }
+            //else if ()
+            //{
+
+            //}
             else
             {
-                payments.ParkId = 1;
-                payments.LeftDay = Convert.ToInt32(lblleftday.Text);
-                payments.PaymCost = Convert.ToDecimal(cmb_pay.Text);
-                payments.PaymUserPlate = txt_CarPlate.Text;
-                var SuccesPayment = await client.CreatePayment(payments);
+
+                payments.PaymUserPlate = Convert.ToString(txt_CarPlate.Text);
+                var pay = await client.HasBills(payments);
+                if (pay == 1)
+                {
+                    payments.PaymUserPlate = txt_CarPlate.Text;
+                    payments.EventDate = Convert.ToDateTime(null);
+                    payments.ParkId = 1;
+                    payments.LeftDay = Convert.ToInt32(cmb_pay.Text);
+                    payments.PaymCost = Convert.ToDecimal(lblcost.Text);
+                    var SuccesPayment = await client.CreatePayment(payments);
+                }
+                else
+                {
+                    pnllastpage.Visible = true;
+                    ContextLbl.Text = "Plakanıza Ait Abonmalık Hakkı Devam Etmektedir";
+                    btn_register.BackColor = Color.Green;
+                    btn_pay.BackColor = Color.Green;
+                    btn_where.BackColor = Color.Green;
+                    pnllastpage.Visible = true;
+                    txteposta.Visible = false;
+                    lbleposta.Visible = false;
+                    succes++;
+                }
             }
 
             string cont = "";
 
-            if (txteposta.Text != "")
+            if (txteposta.Text != "" && succes != 1)
             {
 
                 Service.ServiceHelp.MailSender mailSender = new Service.ServiceHelp.MailSender();
@@ -212,14 +238,16 @@ namespace TicketMach
 
 
             }
-            else
+            else if (succes != 1)
+            {
                 ContextLbl.Text = "Eposta  Adresi Girmediniz \n En Yakın Zamandaa Şubeden Faturanızı Alabilirsiniz";
-            btn_register.BackColor = Color.Green;
-            btn_pay.BackColor = Color.Green;
-            btn_where.BackColor = Color.Green;
-            pnllastpage.Visible = true;
-            txteposta.Visible = false;
-            lbleposta.Visible = false;
+                btn_register.BackColor = Color.Green;
+                btn_pay.BackColor = Color.Green;
+                btn_where.BackColor = Color.Green;
+                pnllastpage.Visible = true;
+                txteposta.Visible = false;
+                lbleposta.Visible = false;
+            }
 
         }
 

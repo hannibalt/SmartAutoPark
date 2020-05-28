@@ -10,6 +10,7 @@ namespace _Business.Abstract
 
         Users GetUsersById(int id);
         Users GetByCarPlate(string id);
+        Users IsUserActive(string nameplate);
 
         void Add(Users users);
         void Update(Users users);

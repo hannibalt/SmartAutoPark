@@ -48,7 +48,7 @@ namespace ControlSRC
         }
         private void nextPage()
         {
-            MainScreen ScreenTWO = new MainScreen();
+            AdminRoot ScreenTWO = new AdminRoot();
             ScreenTWO.Show();
             this.Hide();
 
