@@ -133,12 +133,19 @@ namespace TicketMach
         {
             if (txt_CarPlate.Text.Length > 6 && txt_name.Text.Length > 0 && txt_surname.Text.Length > 0 && cmb_pay.SelectedIndex > -1)
             {
-                pnlpay.Visible = true;
-                btn_register.BackColor = Color.Green;
-                btn_pay.BackColor = Color.Yellow;
-                Save_Data();
-                txteposta.Visible = true;
-                lbleposta.Visible = true;
+                if (txt_CarPlate.Text.Length < 9)
+                {
+                    pnlpay.Visible = true;
+                    btn_register.BackColor = Color.Green;
+                    btn_pay.BackColor = Color.Yellow;
+                    Save_Data();
+                    txteposta.Visible = true;
+                    lbleposta.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Araç Plakanızı Eksik veya Fazla Tuşladınız!!");
+                }
             }
         }
 

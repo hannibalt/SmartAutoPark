@@ -187,7 +187,7 @@ namespace ControlSRC
         private void ArdunioCreater()
         {
             ArdunioReader = new SerialPort();
-            ArdunioReader.PortName = "COM3";       //Port ismini comboBox1'in text'i olarak belirle
+            ArdunioReader.PortName = "COM4";       //Port ismini comboBox1'in text'i olarak belirle
             ArdunioReader.BaudRate = 9600;
             ArdunioReader.Open();
             ArdunioReader.DataReceived += new SerialDataReceivedEventHandler(ArdunioReader_DataReceived); //DataReceived eventini oluşturma  
