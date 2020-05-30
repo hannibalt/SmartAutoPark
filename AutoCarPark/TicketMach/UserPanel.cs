@@ -165,6 +165,7 @@ namespace TicketMach
             int succes = 0;
             Users users = new Users();
             Payments payments = new Payments();
+            string cont = "";
 
 
 
@@ -184,6 +185,51 @@ namespace TicketMach
                 payments.EventDate = Convert.ToDateTime(null);
 
                 var NewUserSuccesPayment = await client.CreatePayment(payments);
+                if (txteposta.Text != "")
+                {
+                 
+                    Service.ServiceHelp.MailSender mailSender = new Service.ServiceHelp.MailSender();
+                    if (Convert.ToInt32(hasaccount) == 1)
+                    {
+                        cont = txt_CarPlate.Text + "  Plaka için Zaten Kayıt Bulunmaktadır" + lblleftday.Text + "    Günlük Üyelik Alınmıştır. \n Tutar:" + lblcost.Text;
+
+                    }
+                    else
+                        cont = txt_CarPlate.Text + "  Plaka için" + lblleftday.Text + "    Günlük Kayıt alınmıştır. \n Tutar:" + lblcost.Text;
+
+
+
+
+                    var i = mailSender.SendMail(txteposta.Text, cont);
+                    if (i == false)
+                    {
+                        ContextLbl.Text = "Eposta Hatalı Kayıt Oluşturuldu \n En Yakın Zamandaa Şubeden Faturanızı Alabilirsiniz";
+                        btn_register.BackColor = Color.Green;
+                        btn_pay.BackColor = Color.Green;
+                        btn_where.BackColor = Color.Green;
+                        pnllastpage.Visible = true;
+                        txteposta.Visible = false;
+                        lbleposta.Visible = false;
+                    }
+                    btn_register.BackColor = Color.Green;
+                    btn_pay.BackColor = Color.Green;
+                    btn_where.BackColor = Color.Green;
+                    pnllastpage.Visible = true;
+                    txteposta.Visible = false;
+                    lbleposta.Visible = false;
+
+                }
+                else if (txteposta.Text == "")
+                {
+                    ContextLbl.Text = "Eposta  Adresi Girmediniz \n En Yakın Zamandaa Şubeden Faturanızı Alabilirsiniz";
+                    btn_register.BackColor = Color.Green;
+                    btn_pay.BackColor = Color.Green;
+                    btn_where.BackColor = Color.Green;
+                    pnllastpage.Visible = true;
+                    txteposta.Visible = false;
+                    lbleposta.Visible = false;
+                }
+
             }
             //else if ()
             //{
@@ -202,6 +248,9 @@ namespace TicketMach
                     payments.LeftDay = Convert.ToInt32(cmb_pay.Text);
                     payments.PaymCost = Convert.ToDecimal(lblcost.Text);
                     var SuccesPayment = await client.CreatePayment(payments);
+                    pnllastpage.Visible = true;
+                    txteposta.Visible = false;
+                    lbleposta.Visible = false;
                 }
                 else
                 {
@@ -217,7 +266,6 @@ namespace TicketMach
                 }
             }
 
-            string cont = "";
 
             if (txteposta.Text != "" && succes != 1)
             {

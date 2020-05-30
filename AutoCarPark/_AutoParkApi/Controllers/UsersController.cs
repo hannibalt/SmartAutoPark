@@ -37,7 +37,7 @@ namespace _AutoParkApi.Controllers
         }
         // PUT: api/CountryPut
         //     [Route("EditCountry")]
-        [HttpPut("{id}")]
+        [HttpPut]
         public void PUT(Users users)
         {
 
@@ -66,6 +66,13 @@ namespace _AutoParkApi.Controllers
             else
                 return false;
         }
+        [HttpGet("CarPlateForAll/{carplate}")]
+
+        public Users GetUserFromPlate(string carplate)
+        {
+            return  _usersservice.GetByCarPlate(carplate);
+
+        }
 
         [HttpGet("getusersactive/{carplate}")]
 
@@ -74,6 +81,12 @@ namespace _AutoParkApi.Controllers
             var result = _usersservice.IsUserActive(carplate);
             return result;
         }
+        [HttpGet("doactive/{carplate}")]
 
+        public Users DoUserActive(string carplate)
+        {
+            var result = _usersservice.IsUserActive(carplate);
+            return result;
+        }
     }
 }

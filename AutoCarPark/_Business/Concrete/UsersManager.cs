@@ -50,6 +50,7 @@ namespace _Business.Concrete
             return result;
         }
 
+
         public void Update(Users users)
         {
             _usersdal.Update(users);

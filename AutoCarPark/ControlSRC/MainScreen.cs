@@ -161,7 +161,7 @@ namespace ControlSRC
             {
                 label1.Text = ArdunioData;
                 //Gelen veriyi label2'ye yaz //
-                if (Convert.ToInt32(ArdunioData) < 70)
+                if (Convert.ToInt32(ArdunioData) < 40 && Convert.ToInt32(ArdunioData) !=0)
                 {
                     if (stop == false)
                     {
@@ -187,7 +187,7 @@ namespace ControlSRC
         private void ArdunioCreater()
         {
             ArdunioReader = new SerialPort();
-            ArdunioReader.PortName = "COM4";       //Port ismini comboBox1'in text'i olarak belirle
+            ArdunioReader.PortName = "COM3";       //Port ismini comboBox1'in text'i olarak belirle
             ArdunioReader.BaudRate = 9600;
             ArdunioReader.Open();
             ArdunioReader.DataReceived += new SerialDataReceivedEventHandler(ArdunioReader_DataReceived); //DataReceived eventini oluşturma  

@@ -95,37 +95,61 @@ namespace ControlSRC
         private async void btn_approve_Click(object sender, EventArgs e)
         {
 
-            if(txt_cost.Text=="")
+            if (txt_cost.Text == "")
             {
                 MessageBox.Show("Onaylamak İçin Fatura Seçiniz");
             }
             else
-            { 
-            btn_approve.Enabled = false;
-            using (var httpClient = new HttpClient())
             {
+                btn_approve.Enabled = false;
+                using (var httpClient = new HttpClient())
+                {
 
-                Payments payments = new Payments();
-                payments.LeftDay = Convert.ToInt32(txt_day.Text);
-                payments.EventDate = Convert.ToDateTime(DateTime.Now);
-                payments.ParkId = Convert.ToInt32(txt_parkid.Text);
-                payments.PaymCost = Convert.ToDecimal(txt_cost.Text);
-                payments.PaymUserPlate = Convert.ToString(txt_carplate.Text);
-                payments.PaymId = Convert.ToInt32(lbl_payid.Text);
-
-
-                var convertModel = JsonConvert.SerializeObject(payments);
-                var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
-                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                    Payments payments = new Payments();
+                    payments.LeftDay = Convert.ToInt32(txt_day.Text);
+                    payments.EventDate = Convert.ToDateTime(DateTime.Now);
+                    payments.ParkId = Convert.ToInt32(txt_parkid.Text);
+                    payments.PaymCost = Convert.ToDecimal(txt_cost.Text);
+                    payments.PaymUserPlate = Convert.ToString(txt_carplate.Text);
+                    payments.PaymId = Convert.ToInt32(lbl_payid.Text);
 
 
+                    var convertModel = JsonConvert.SerializeObject(payments);
+                    var content = new StringContent(convertModel, Encoding.UTF8, "application/json");
+                    httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                var response = await httpClient.PutAsync("https://localhost:44325/api/Payments", content);
+
+
+                    var response = await httpClient.PutAsync("https://localhost:44325/api/Payments", content);
+                    var usermodel = await httpClient.GetAsync("https://localhost:44325/api/Users/CarPlateForAll/" + txt_carplate.Text);
+                    var apiResponse = await usermodel.Content.ReadAsStringAsync();
+                    try
+                    {
+                        Users users = JsonConvert.DeserializeObject<Users>(apiResponse);
+                        users.UseActive = true;
+                        var convertModele = JsonConvert.SerializeObject(users);
+                        var contente = new StringContent(convertModele, Encoding.UTF8, "application/json");
+                        httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                        var response2 = await httpClient.PutAsync("https://localhost:44325/api/Users", contente);
+
+                    }
+                    catch (Exception)
+                    {
+                        FillDTGD();
+                        ClearValues();
+                    }
+                   
+
+                  
+
+
+                }
+
             }
             FillDTGD();
             ClearValues();
             btn_approve.Enabled = true;
-            }
         }
     }
 }
+
