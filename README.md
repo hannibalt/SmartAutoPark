@@ -1,6 +1,6 @@
 # SmartAutoPark
-#OpenALPR
-#AForge
-#Ardunio
-#C#
-#2020
+# OpenALPR
+# AForge
+# Ardunio
+# C#
+# 2020
