@@ -19,13 +19,13 @@ namespace _AutoParkApi.Controllers
             _usersService = usersService;
         }
 
-        //  [Route("GetAirports")]
+
         [HttpGet]
         public List<Payments> GetPaymentsAll()
         {
             return _paymentsService.GetAll();
         }
-        //    [Route("AddAirports")]
+
         [HttpGet("ParkId")]
         public List<Payments> GetUnApproved(int ParkId)
         {
@@ -36,15 +36,13 @@ namespace _AutoParkApi.Controllers
         {
             _paymentsService.Add(payments);
         }
-        // DELETE: api/Deleteairports
-        //    [Route("Deleteairports")]
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             var payments = _paymentsService.GetPayments(id);
             _paymentsService.Delete(payments);
         }
-        // PUT: api/CountryPut
         [HttpPut]
         public void PUT(Payments pay)
         {

@@ -166,9 +166,8 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1001, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 36;
-            this.label1.Text = "label1";
             // 
             // textBox1
             // 
@@ -176,6 +175,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 37;
+            this.textBox1.Visible = false;
             // 
             // button1
             // 
@@ -185,6 +185,7 @@
             this.button1.TabIndex = 38;
             this.button1.Text = "Aç";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
@@ -195,6 +196,7 @@
             this.button2.TabIndex = 39;
             this.button2.Text = "Kapat";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnexit
@@ -227,9 +229,8 @@
             this.lblparkId.AutoSize = true;
             this.lblparkId.Location = new System.Drawing.Point(820, 11);
             this.lblparkId.Name = "lblparkId";
-            this.lblparkId.Size = new System.Drawing.Size(47, 13);
+            this.lblparkId.Size = new System.Drawing.Size(0, 13);
             this.lblparkId.TabIndex = 42;
-            this.lblparkId.Text = "lblparkId";
             // 
             // txt_result
             // 
@@ -247,6 +248,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 45;
+            this.textBox2.Visible = false;
             // 
             // btntriggercam
             // 
@@ -256,6 +258,7 @@
             this.btntriggercam.TabIndex = 46;
             this.btntriggercam.Text = "button3";
             this.btntriggercam.UseVisualStyleBackColor = true;
+            this.btntriggercam.Visible = false;
             this.btntriggercam.Click += new System.EventHandler(this.btntriggercam_Click);
             // 
             // Btn_GetBack
@@ -277,6 +280,7 @@
             this.BTN_RECORDON.Size = new System.Drawing.Size(75, 91);
             this.BTN_RECORDON.TabIndex = 48;
             this.BTN_RECORDON.UseVisualStyleBackColor = true;
+            this.BTN_RECORDON.Visible = false;
             this.BTN_RECORDON.Click += new System.EventHandler(this.BTN_RECORDON_Click);
             // 
             // MainScreen
